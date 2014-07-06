@@ -1,0 +1,9 @@
+{
+  "realm": "smogride",
+  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl6jX3jqqyrshMWkLmm1qTKARgiDkdWIniOkDHRV3DrFjOyROKBjhvkCiYjaE5T7mJp4sdRyf/NZfL25zSKTX6pYlVpOnGRZ3xBouupvQZ7rTmL4tKPKokfaN1WEiNFmVFHbwpD5tEiOhJOtxmYcDkWiFOihrVRHp2HbN5xpJzFK8hFRnTAjSlNuXxt5+uUPemz/kHcoYGdq1Wkm48zId0SWemkEp44n2/9/tvbW1imcgMy/I9RcVCPGlM+2QzE9lL//7YjYHQymanGBCyBLsUil2bVhY8FM0UOlbFswICQgIQkdOuFdxG08TYECHGJU0vQQXGDdglJL8qFl8w2XMSQIDAQAB",
+  "auth-server-url": "http://localhost:8080/auth",
+  "ssl-not-required": true,
+  "resource": "database-service",
+  "bearer-only": true
+  
+}
