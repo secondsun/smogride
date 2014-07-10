@@ -68,7 +68,7 @@ public class Service {
      */
     @GET
     @Path("ride")
-    @RolesAllowed(value = "user")
+//    @RolesAllowed(value = "user")
     @Produces("application/json")
     public Response getSecure() {
         Query query = em.createQuery("from Ride where owner = :owner");
@@ -86,7 +86,7 @@ public class Service {
     @Path("ride")
     @Produces("application/json")
     @Consumes("application/json")
-    @RolesAllowed(value = "user")
+//    @RolesAllowed(value = "user")
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response addRide(Ride ride) {
         Map<String, String> responseMap = new HashMap<>();        
@@ -126,7 +126,7 @@ public class Service {
     @Path("ride/{id:[0-9][0-9]*}")
     @Produces("application/json")
     @Consumes("application/json")
-    @RolesAllowed(value = "user")
+//    @RolesAllowed(value = "user")
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response updateRide(@PathParam("id") Long id, Ride ride) {
         Map<String, String> responseMap = new HashMap<>();        

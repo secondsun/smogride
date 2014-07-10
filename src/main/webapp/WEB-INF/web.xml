@@ -9,7 +9,7 @@
             30
         </session-timeout>
     </session-config>     
-    <security-constraint>
+<!--    <security-constraint>
         <web-resource-collection>
             <url-pattern>/app/v1/*</url-pattern>
         </web-resource-collection>
@@ -27,5 +27,5 @@
     <security-role>
         <role-name>user</role-name>
     </security-role>
-    
+    -->
 </web-app>
