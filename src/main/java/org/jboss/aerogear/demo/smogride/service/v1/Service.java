@@ -39,15 +39,15 @@ import org.jboss.annotation.security.SecurityDomain;
  * @author summers
  */
 @Path("v1")
-@SecurityDomain("keycloak")
+//@SecurityDomain("keycloak")
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class Service {
 
     private static final Logger log = Logger.getLogger(Service.class.getSimpleName());
-
-    @Inject
-    SmogrideSecurityContext context;
+//
+//    @Inject
+//    SmogrideSecurityContext context;
 
     @PersistenceContext(name = "smogride", type = PersistenceContextType.TRANSACTION)
     private EntityManager em;
@@ -72,7 +72,7 @@ public class Service {
     @Produces("application/json")
     public Response getSecure() {
         Query query = em.createQuery("from Ride where owner = :owner");
-        query.setParameter("owner", context.getUsername());
+        query.setParameter("owner", "secondsun");
         return Response.ok(query.getResultList()).build();
     }
 
@@ -92,7 +92,7 @@ public class Service {
         Map<String, String> responseMap = new HashMap<>();        
         Response.ResponseBuilder builder;
         try {
-            ride.setOwner(context.getUsername());
+            //ride.setOwner(context.getUsername());
             em.persist(ride);
             em.flush();
             builder = Response.ok(ride);
@@ -135,10 +135,10 @@ public class Service {
             
             Ride currentRide = em.find(Ride.class, id);
             
-            if (!currentRide.getOwner().equals(context.getUsername())) {
-                throw new IllegalAccessException("Not Authorized");
-            }
-            
+//            if (!currentRide.getOwner().equals(context.getUsername())) {
+//                throw new IllegalAccessException("Not Authorized");
+//            }
+//            
             if (!((Long)currentRide.getVersion()).equals(ride.getVersion())) {
                 throw new OptimisticLockException(currentRide);
             }

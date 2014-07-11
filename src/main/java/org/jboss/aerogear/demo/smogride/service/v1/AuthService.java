@@ -40,7 +40,7 @@ import org.jboss.annotation.security.SecurityDomain;
  */
 @Path("auth")
 @Stateless
-@SecurityDomain("keycloak")
+//@SecurityDomain("keycloak")
 public class AuthService {
 
     @PersistenceUnit(unitName = "smogride")
@@ -68,7 +68,7 @@ public class AuthService {
     
     @GET
     @Path("createAccount")
-    @RolesAllowed(value = {"user"})
+//    @RolesAllowed(value = {"user"})
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public String createAccount(@QueryParam("username") String username) {
         EntityManager em = null;
