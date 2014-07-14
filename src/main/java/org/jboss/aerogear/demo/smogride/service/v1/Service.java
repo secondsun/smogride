@@ -8,13 +8,11 @@ package org.jboss.aerogear.demo.smogride.service.v1;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
@@ -29,9 +27,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import org.hibernate.exception.ConstraintViolationException;
-import org.jboss.aerogear.demo.smogride.secure.SmogrideSecurityContext;
 import org.jboss.aerogear.demo.smogride.vo.Ride;
-import org.jboss.annotation.security.SecurityDomain;
 
 /**
  * REST Web Service
@@ -70,7 +66,7 @@ public class Service {
     @Path("ride")
 //    @RolesAllowed(value = "user")
     @Produces("application/json")
-    public Response getSecure() {
+    public Response getRides() {
         Query query = em.createQuery("from Ride where owner = :owner");
         query.setParameter("owner", "secondsun");
         return Response.ok(query.getResultList()).build();
