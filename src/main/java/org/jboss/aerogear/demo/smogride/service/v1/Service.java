@@ -85,10 +85,11 @@ public class Service {
 //    @RolesAllowed(value = "user")
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response addRide(Ride ride) {
-        Map<String, String> responseMap = new HashMap<>();        
+        Map<String, String> responseMap = new HashMap<>();
         Response.ResponseBuilder builder;
         try {
-            //ride.setOwner(context.getUsername());
+            ride.setOwner("secondsun");
+
             em.persist(ride);
             em.flush();
             builder = Response.ok(ride);
@@ -98,7 +99,7 @@ public class Service {
             builder = Response.status(Response.Status.CONFLICT).entity(getConflictingRide(ride));
         } catch (Exception e) {
             if (e.getCause() instanceof ConstraintViolationException) {
-                builder = Response.status(Response.Status.CONFLICT).entity(getConflictingRide(ride));                
+                builder = Response.status(Response.Status.CONFLICT).entity(getConflictingRide(ride));
                 return builder.build();
             }
             log.info("Exception - " + e.toString());
@@ -125,26 +126,19 @@ public class Service {
 //    @RolesAllowed(value = "user")
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response updateRide(@PathParam("id") Long id, Ride ride) {
-        Map<String, String> responseMap = new HashMap<>();        
+        Map<String, String> responseMap = new HashMap<>();
         Response.ResponseBuilder builder;
         try {
-            
+
             Ride currentRide = em.find(Ride.class, id);
-            
-//            if (!currentRide.getOwner().equals(context.getUsername())) {
-//                throw new IllegalAccessException("Not Authorized");
-//            }
-//            
-            if (!((Long)currentRide.getVersion()).equals(ride.getVersion())) {
-                throw new OptimisticLockException(currentRide);
-            }
-            
-            
-            
-            
+
             currentRide.setDuration(ride.getDuration());
             currentRide.setMetersTravelled(ride.getMetersTravelled());
-            
+
+            if (!((Long) currentRide.getVersion()).equals(ride.getVersion())) {
+                throw new OptimisticLockException(currentRide);
+            }
+
             em.merge(currentRide);
             em.flush();
             builder = Response.ok(currentRide);
@@ -154,7 +148,7 @@ public class Service {
             builder = Response.status(Response.Status.CONFLICT).entity(getConflictingRide(ride));
         } catch (Exception e) {
             if (e.getCause() instanceof ConstraintViolationException) {
-                builder = Response.status(Response.Status.CONFLICT).entity(getConflictingRide(ride));                
+                builder = Response.status(Response.Status.CONFLICT).entity(getConflictingRide(ride));
                 return builder.build();
             }
             log.info("Exception - " + e.toString());
@@ -166,7 +160,7 @@ public class Service {
         }
         return builder.build();
     }
-    
+
     private Ride getConflictingRide(Ride ride) {
         if (ride.getId() != null) {
             return em.find(Ride.class, ride.getId());
